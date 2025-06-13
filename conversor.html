@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conversor de Temperatura</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .conversor-container {
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .conversor-container:hover {
+      transform: scale(1.02);
+    }
+
+    .conversor-container h2 {
+      margin-bottom: 15px;
+      color: #00bcd4;
+      font-size: 24px;
+    }
+
+    .conversor-container .icono {
+      font-size: 40px;
+      color: #f44336;
+      margin-bottom: 15px;
+      animation: pop 0.6s ease;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    input, select {
+      background-color: #2a2a2a;
+      color: white;
+    }
+
+    button {
+      background-color: #00bcd4;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0097a7;
+    }
+
+    .conversion-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .conversion-label {
+      font-weight: bold;
+      font-size: 14px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #4caf50;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    #resultado.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="conversor-container">
+    <div class="icono"><i class="fas fa-temperature-high"></i></div>
+    <h2>Conversor de Temperatura</h2>
+
+    <input type="number" id="inputTemp" placeholder="Introduce el valor">
+
+    <div class="conversion-row">
+      <select id="fromUnit">
+        <option value="C">Celsius</option>
+        <option value="F">Fahrenheit</option>
+        <option value="K">Kelvin</option>
+      </select>
+
+      <span class="conversion-label">Convertir a</span>
+
+      <select id="toUnit">
+        <option value="C">Celsius</option>
+        <option value="F">Fahrenheit</option>
+        <option value="K">Kelvin</option>
+      </select>
+    </div>
+
+    <button onclick="convertir()">Convertir</button>
+    <p id="resultado"></p>
+  </div>
+
+  <script>
+    function convertir() {
+      const valor = parseFloat(document.getElementById("inputTemp").value);
+      const desde = document.getElementById("fromUnit").value;
+      const hasta = document.getElementById("toUnit").value;
+      const resultadoElement = document.getElementById("resultado");
+      let resultado;
+
+      if (isNaN(valor)) {
+        resultadoElement.textContent = "Por favor ingresa un número válido.";
+        resultadoElement.classList.add("visible");
+        resultadoElement.style.color = "#f44336";
+        return;
+      }
+
+      if (desde === hasta) {
+        resultado = valor;
+      } else if (desde === "C" && hasta === "F") {
+        resultado = (valor * 9 / 5) + 32;
+      } else if (desde === "C" && hasta === "K") {
+        resultado = valor + 273.15;
+      } else if (desde === "F" && hasta === "C") {
+        resultado = (valor - 32) * 5 / 9;
+      } else if (desde === "F" && hasta === "K") {
+        resultado = (valor - 32) * 5 / 9 + 273.15;
+      } else if (desde === "K" && hasta === "C") {
+        resultado = valor - 273.15;
+      } else if (desde === "K" && hasta === "F") {
+        resultado = (valor - 273.15) * 9 / 5 + 32;
+      }
+
+      resultadoElement.textContent = `${valor}°${desde} = ${resultado.toFixed(2)}°${hasta}`;
+      resultadoElement.classList.add("visible");
+      resultadoElement.style.color = "#4caf50";
+    }
+  </script>
+
+</body>
+</html>
