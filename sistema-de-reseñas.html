@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Reseñas Minimalista</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .review-form-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            animation: slideInLeft 0.6s ease-out;
+            transition: var(--transition);
+        }
+
+        .review-form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+        }
+
+        .section-title i {
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .rating-container {
+            margin: 25px 0;
+        }
+
+        .rating-title {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .stars {
+            display: flex;
+            gap: 5px;
+        }
+
+        .star {
+            font-size: 2.2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .star:hover, .star.active {
+            color: #ffc107;
+            transform: scale(1.1);
+        }
+
+        .star.hovered {
+            color: #ffd54f;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .reviews-section {
+            animation: slideInRight 0.6s ease-out;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--light-gray);
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .reviews-container {
+            display: grid;
+            gap: 25px;
+        }
+
+        .review-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            animation: fadeIn 0.5s ease-out;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            animation-fill-mode: forwards;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .review-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .user-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 3px;
+        }
+
+        .user-info .date {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 3px;
+        }
+
+        .review-rating i {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        .review-content {
+            padding: 15px 0;
+            color: var(--dark);
+        }
+
+        .review-card.positive {
+            border-left: 4px solid #4ade80;
+        }
+
+        .review-card.negative {
+            border-left: 4px solid #f87171;
+        }
+
+        .review-card.neutral {
+            border-left: 4px solid #94a3b8;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .empty-state i {
+            font-size: 3.5rem;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--gray);
+        }
+
+        .empty-state p {
+            color: var(--gray);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .review-card:nth-child(1) { animation-delay: 0.1s; }
+        .review-card:nth-child(2) { animation-delay: 0.2s; }
+        .review-card:nth-child(3) { animation-delay: 0.3s; }
+        .review-card:nth-child(4) { animation-delay: 0.4s; }
+        .review-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 18px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast i {
+            font-size: 1.8rem;
+        }
+
+        .toast.success i {
+            color: #4ade80;
+        }
+
+        .toast.error i {
+            color: #f87171;
+        }
+
+        .toast-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .toast-content p {
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-star"></i> Sistema de Reseñas</h1>
+            <p>Comparte tu experiencia y lee lo que otros usuarios opinan. Filtra para ver solo las reseñas positivas.</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Sección para agregar reseñas -->
+            <section class="review-form-section">
+                <h2 class="section-title"><i class="fas fa-edit"></i> Deja tu reseña</h2>
+                
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label for="userName">Nombre</label>
+                        <input type="text" id="userName" placeholder="Tu nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reviewText">Tu reseña</label>
+                        <textarea id="reviewText" rows="4" placeholder="Comparte tu experiencia..." required></textarea>
+                    </div>
+                    
+                    <div class="rating-container">
+                        <div class="rating-title">Calificación</div>
+                        <div class="stars" id="ratingStars">
+                            <i class="far fa-star star" data-rating="1"></i>
+                            <i class="far fa-star star" data-rating="2"></i>
+                            <i class="far fa-star star" data-rating="3"></i>
+                            <i class="far fa-star star" data-rating="4"></i>
+                            <i class="far fa-star star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="ratingValue" value="0">
+                    </div>
+                    
+                    <button type="submit" class="btn">
+                        <i class="fas fa-paper-plane"></i> Enviar reseña
+                    </button>
+                </form>
+            </section>
+            
+            <!-- Sección para mostrar reseñas -->
+            <section class="reviews-section">
+                <h2 class="section-title"><i class="fas fa-comments"></i> Reseñas de usuarios</h2>
+                
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-layer-group"></i> Todas
+                    </button>
+                    <button class="filter-btn" data-filter="positive">
+                        <i class="fas fa-smile"></i> Positivas (4-5★)
+                    </button>
+                    <button class="filter-btn" data-filter="neutral">
+                        <i class="fas fa-meh"></i> Neutrales (3★)
+                    </button>
+                    <button class="filter-btn" data-filter="negative">
+                        <i class="fas fa-frown"></i> Negativas (1-2★)
+                    </button>
+                </div>
+                
+                <div class="reviews-container" id="reviewsContainer">
+                    <!-- Las reseñas se generarán dinámicamente con JavaScript -->
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Toast de notificación -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <div class="toast-content">
+            <h4>Éxito</h4>
+            <p>Tu reseña ha sido enviada</p>
+        </div>
+    </div>
+    
+    <script>
+        // Datos iniciales de ejemplo
+        let reviews = [
+            {
+                id: 1,
+                name: "Carlos Martínez",
+                text: "Excelente servicio al cliente y productos de alta calidad. Definitivamente volveré a comprar aquí.",
+                rating: 5,
+                date: "15 Jun 2023"
+            },
+            {
+                id: 2,
+                name: "Ana Rodríguez",
+                text: "Me encantó la experiencia de compra. La entrega fue rápida y el producto superó mis expectativas.",
+                rating: 4,
+                date: "12 Jun 2023"
+            },
+            {
+                id: 3,
+                name: "Miguel Sánchez",
+                text: "Producto decente, pero el tiempo de entrega fue más largo de lo esperado.",
+                rating: 3,
+                date: "10 Jun 2023"
+            },
+            {
+                id: 4,
+                name: "Laura Gómez",
+                text: "No quedé satisfecha con la calidad del producto. Esperaba algo mejor por el precio.",
+                rating: 2,
+                date: "8 Jun 2023"
+            },
+            {
+                id: 5,
+                name: "Javier López",
+                text: "¡Increíble! El mejor servicio que he recibido en mucho tiempo. Atención personalizada y rápida respuesta.",
+                rating: 5,
+                date: "5 Jun 2023"
+            }
+        ];
+
+        // Variables globales
+        let currentRating = 0;
+        let currentFilter = 'all';
+        const reviewsContainer = document.getElementById('reviewsContainer');
+        const reviewForm = document.getElementById('reviewForm');
+        const ratingStars = document.querySelectorAll('.star');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const toast = document.getElementById('toast');
+
+        // Inicializar la aplicación
+        function init() {
+            displayReviews();
+            setupEventListeners();
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Sistema de calificación con estrellas
+            ratingStars.forEach(star => {
+                star.addEventListener('click', () => handleRating(star));
+                star.addEventListener('mouseover', () => handleStarHover(star));
+                star.addEventListener('mouseout', resetStarHover);
+            });
+
+            // Enviar reseña
+            reviewForm.addEventListener('submit', handleReviewSubmit);
+
+            // Filtros
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => handleFilterClick(button));
+            });
+        }
+
+        // Manejar la calificación con estrellas
+        function handleRating(clickedStar) {
+            const rating = parseInt(clickedStar.getAttribute('data-rating'));
+            currentRating = rating;
+            document.getElementById('ratingValue').value = rating;
+            
+            ratingStars.forEach(star => {
+                const starRating = parseInt(star.getAttribute('data-rating'));
+                star.classList.remove('active');
+                if (starRating <= rating) {
+                    star.classList.add('active');
+                }
+            });
+        }
+
+        // Efecto hover en estrellas
+        function handleStarHover(hoveredStar) {
+            const hoverRating = parseInt(hoveredStar.getAttribute('data-rating'));
+            
+            ratingStars.forEach(star => {
+                const starRating = parseInt(star.getAttribute('data-rating'));
+                star.classList.remove('hovered');
+                if (starRating <= hoverRating) {
+                    star.classList.add('hovered');
+                }
+            });
+        }
+
+        // Resetear efecto hover
+        function resetStarHover() {
+            ratingStars.forEach(star => {
+                star.classList.remove('hovered');
+            });
+        }
+
+        // Manejar envío de reseña
+        function handleReviewSubmit(e) {
+            e.preventDefault();
+            
+            const userName = document.getElementById('userName').value;
+            const reviewText = document.getElementById('reviewText').value;
+            
+            if (currentRating === 0) {
+                showToast('Por favor, selecciona una calificación', 'error');
+                return;
+            }
+            
+            const newReview = {
+                id: Date.now(),
+                name: userName,
+                text: reviewText,
+                rating: currentRating,
+                date: new Date().toLocaleDateString('es-ES', { 
+                    day: 'numeric', 
+                    month: 'short', 
+                    year: 'numeric' 
+                })
+            };
+            
+            reviews.unshift(newReview);
+            displayReviews();
+            resetForm();
+            showToast('Tu reseña ha sido enviada', 'success');
+            
+            // Cambiar automáticamente al filtro "Todas"
+            setActiveFilter('all');
+        }
+
+        // Resetear formulario
+        function resetForm() {
+            reviewForm.reset();
+            currentRating = 0;
+            document.getElementById('ratingValue').value = 0;
+            ratingStars.forEach(star => {
+                star.classList.remove('active');
+            });
+        }
+
+        // Manejar clic en filtros
+        function handleFilterClick(button) {
+            const filter = button.getAttribute('data-filter');
+            setActiveFilter(filter);
+        }
+
+        // Establecer filtro activo
+        function setActiveFilter(filter) {
+            currentFilter = filter;
+            
+            // Actualizar botones
+            filterButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('data-filter') === filter) {
+                    button.classList.add('active');
+                }
+            });
+            
+            displayReviews();
+        }
+
+        // Mostrar reseñas según el filtro
+        function displayReviews() {
+            reviewsContainer.innerHTML = '';
+            
+            let filteredReviews = [...reviews];
+            
+            if (currentFilter === 'positive') {
+                filteredReviews = reviews.filter(review => review.rating >= 4);
+            } else if (currentFilter === 'neutral') {
+                filteredReviews = reviews.filter(review => review.rating === 3);
+            } else if (currentFilter === 'negative') {
+                filteredReviews = reviews.filter(review => review.rating <= 2);
+            }
+            
+            if (filteredReviews.length === 0) {
+                reviewsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-comment-slash"></i>
+                        <h3>No hay reseñas</h3>
+                        <p>Actualmente no hay reseñas disponibles para este filtro.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredReviews.forEach(review => {
+                const reviewCard = document.createElement('div');
+                
+                // Determinar clase según la calificación
+                let ratingClass = '';
+                if (review.rating >= 4) ratingClass = 'positive';
+                else if (review.rating === 3) ratingClass = 'neutral';
+                else ratingClass = 'negative';
+                
+                // Generar estrellas
+                let starsHTML = '';
+                for (let i = 1; i <= 5; i++) {
+                    starsHTML += `<i class="fas fa-star${i <= review.rating ? '' : '-half-alt'}"></i>`;
+                }
+                
+                // Obtener inicial del nombre para el avatar
+                const nameInitial = review.name.charAt(0).toUpperCase();
+                
+                reviewCard.classList.add('review-card', ratingClass);
+                reviewCard.innerHTML = `
+                    <div class="review-header">
+                        <div class="review-user">
+                            <div class="user-avatar">${nameInitial}</div>
+                            <div class="user-info">
+                                <h3>${review.name}</h3>
+                                <div class="date">${review.date}</div>
+                            </div>
+                        </div>
+                        <div class="review-rating">
+                            ${starsHTML}
+                        </div>
+                    </div>
+                    <div class="review-content">
+                        <p>${review.text}</p>
+                    </div>
+                `;
+                
+                reviewsContainer.appendChild(reviewCard);
+            });
+        }
+
+        // Mostrar notificación toast
+        function showToast(message, type = 'success') {
+            const toastContent = toast.querySelector('.toast-content');
+            const toastIcon = toast.querySelector('i');
+            
+            toastContent.querySelector('h4').textContent = 
+                type === 'success' ? 'Éxito' : 'Error';
+            toastContent.querySelector('p').textContent = message;
+            
+            // Cambiar icono según tipo
+            if (type === 'success') {
+                toastIcon.className = 'fas fa-check-circle';
+                toast.classList.remove('error');
+                toast.classList.add('success');
+            } else {
+                toastIcon.className = 'fas fa-exclamation-circle';
+                toast.classList.remove('success');
+                toast.classList.add('error');
+            }
+            
+            // Mostrar toast
+            toast.classList.add('show');
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Inicializar la aplicación cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
