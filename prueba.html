@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Dorado - Gastronomía de Calidad</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Raleway:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #D4AF37;
+            --secondary: #8B0000;
+            --dark: #1a1a1a;
+            --light: #f8f8f8;
+            --gray: #666;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 30px;
+            transition: var(--transition);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--dark);
+        }
+        
+        /* About Section */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--primary);
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Menu Section */
+        .menu {
+            background-color: #f5f5f5;
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 12px 25px;
+            margin: 5px;
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .menu-item {
+            
+            display: flex;
+            flex-direction:column;
+            margin-top: 10px;        
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .menu-item-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .menu-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .menu-item:hover .menu-item-image img {
+            transform: scale(1.1);
+        }
+        
+        .menu-item-content {
+            padding: 25px;
+            margin-bottom:10px;
+        }
+        
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .menu-item-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .menu-item-price {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .menu-item-description {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            overflow: hidden;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        
+        /* Contact */
+        .contact {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            margin: 20px;
+        }
+        
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .contact-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .hours {
+            background-color: rgba(212, 175, 55, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 50px;
+            display: inline-block;
+        }
+        
+        .hours h3 {
+            margin-bottom: 20px;
+        }
+        
+        .hours p {
+            margin: 5px 0;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 70px 0;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">El <span>Dorado</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#menu">Menú</a></li>
+                    <li><a href="#galeria">Galería</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>El Dorado</h1>
+            <p>Donde los sabores se encuentran con la tradición</p>
+            <div class="hero-buttons">
+                <a href="#menu" class="btn">Ver Menú</a>
+                <a href="#reservas" class="btn btn-secondary">Reservar Mesa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="nosotros" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestra Historia</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Sabores que conquistan paladares desde 1995</h3>
+                    <p>En El Dorado, fusionamos la pasión por la cocina con ingredientes de la más alta calidad para ofrecerte una experiencia gastronómica inolvidable. Nuestro restaurante nació del sueño de crear un lugar donde la tradición culinaria se encontrara con la innovación.</p>
+                    <p>Especializados en pizzas artesanales, hamburguesas gourmet y parrilla de primera, cada plato que servimos es una obra maestra creada con dedicación y amor por nuestros chefs.</p>
+                    <p>Nuestro compromiso es brindar no solo una comida excepcional, sino también un ambiente cálido y acogedor que te haga sentir como en casa desde el primer momento.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Interior del restaurante El Dorado">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="section menu">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestro Menú</h2>
+            </div>
+            <div class="menu-categories">
+                <button class="category-btn active" data-category="todo">Todo</button>
+<button class="category-btn" data-category="pizza">Pizzas</button>
+<button class="category-btn" data-category="hamburguesa">Hamburguesas</button>
+<button class="category-btn" data-category="parrilla">Parrilla</button>
+<button class="category-btn" data-category="postres">Postres</button>
+<button class="category-btn" data-category="bebidas">Bebidas</button>
+            </div>
+            <div class="menu-grid">
+                <!-- Pizza 1 -->
+                <div class="menu-item pizza">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Pizza Dorada">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Pizza Dorada</h3>
+                            <span class="menu-item-price">$14.99</span>
+                        </div>
+                        <p class="menu-item-description">Masa artesana, salsa de tomate casera, mozzarella fresca, jamón serrano, champiñones y aceite de trufa.</p>
+                    </div>
+                </div>
+                
+                <!-- Hamburguesa 1 -->
+                <div class="menu-item hamburguesa">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hamburguesa El Dorado">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Hamburguesa El Dorado</h3>
+                            <span class="menu-item-price">$16.50</span>
+                        </div>
+                        <p class="menu-item-description">Carne de res 200g, queso cheddar, tocino crujiente, cebolla caramelizada, lechuga, tomate y salsa especial.</p>
+                    </div>
+                </div>
+                
+                <!-- Parrilla 1 -->
+                <div class="menu-item parrilla">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1558036117-15d82a90b9b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Asado Argentino">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Asado Argentino</h3>
+                            <span class="menu-item-price">$22.99</span>
+                        </div>
+                        <p class="menu-item-description">Corte de entraña premium 300g, acompañado de chimichurri, papas rústicas y vegetales a la parrilla.</p>
+                    </div>
+                </div>
+                
+                <!-- Pizza 2 -->
+                <div class="menu-item pizza">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Pizza Mediterránea">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Pizza Mediterránea</h3>
+                            <span class="menu-item-price">$15.50</span>
+                        </div>
+                        <p class="menu-item-description">Masa fina, aceite de oliva, mozzarella, tomate cherry, aceitunas negras, albahaca fresca y queso feta.</p>
+                    </div>
+                </div>
+                
+                <!-- Hamburguesa 2 -->
+                <div class="menu-item hamburguesa">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1586816001966-79b736744398?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hamburguesa BBQ">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Hamburguesa BBQ</h3>
+                            <span class="menu-item-price">$17.99</span>
+                        </div>
+                        <p class="menu-item-description">Doble carne, salsa barbacoa casera, cebolla crispy, queso ahumado, pepinillos y pan de brioche.</p>
+                    </div>
+                </div>
+                
+                <!-- Parrilla 2 -->
+                <div class="menu-item parrilla">
+                    <div class="menu-item-image">
+                        <img src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Costillas BBQ">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-title">Costillas BBQ</h3>
+                            <span class="menu-item-price">$19.99</span>
+                        </div>
+                        <p class="menu-item-description">Costillas de cerdo glaseadas con nuestra salsa secreta, acompañadas de papas fritas y ensalada coleslaw.</p>
+                    </div>
+                </div>
+              
+              <!-- Postre 1 -->
+<div class="menu-item postres">
+  <div class="menu-item-image">
+    <img src="https://plus.unsplash.com/premium_photo-1722686461601-b2a018a4213b?q=80&w=955&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Cheesecake de Frutos Rojos">
+  </div>
+  <div class="menu-item-content">
+    <div class="menu-item-header">
+      <h3 class="menu-item-title">Cheesecake de Frutos Rojos</h3>
+      <span class="menu-item-price">$6.50</span>
+    </div>
+    <p class="menu-item-description">
+      Suave cheesecake sobre base de galleta con cobertura de frutos rojos frescos y salsa casera.
+    </p>
+  </div>
+</div>
+
+<!-- Postre 2 -->
+<div class="menu-item postres">
+  <div class="menu-item-image">
+    <img src="https://media.istockphoto.com/id/160946353/photo/brownie-with-vanilla-ice-cream.jpg?s=1024x1024&w=is&k=20&c=a-E5CdPUM0KmZttqISAhLU3-3zbPua0RmKJJBBs_CsU=" alt="Brownie con Helado">
+  </div>
+  <div class="menu-item-content">
+    <div class="menu-item-header">
+      <h3 class="menu-item-title">Brownie con Helado</h3>
+      <span class="menu-item-price">$5.75</span>
+    </div>
+    <p class="menu-item-description">
+      Delicioso brownie de chocolate caliente acompañado de helado de vainilla y salsa de caramelo.
+    </p>
+  </div>
+</div>
+
+<!-- Bebida 1 -->
+<div class="menu-item bebidas">
+  <div class="menu-item-image">
+    <img src="https://images.unsplash.com/photo-1617108126666-3b4f0251913a?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Limonada Refrescante">
+  </div>
+  <div class="menu-item-content">
+    <div class="menu-item-header">
+      <h3 class="menu-item-title">Limonada Refrescante</h3>
+      <span class="menu-item-price">$3.25</span>
+    </div>
+    <p class="menu-item-description">
+      Limonada natural preparada al momento con hojas de menta fresca y un toque de miel.
+    </p>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galeria" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Galería</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1554679665-f5537f187268?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Ambiente restaurante">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Barra de bebidas">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Parrilla en acción">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1606755456206-b25206cde27e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Terraza exterior">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Plato de entrada">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Pizza gourmet">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://plus.unsplash.com/premium_photo-1675252369719-dd52bc69c3df?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Hamburguesa especial">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Postre de chocolate">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="section contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contacto</h2>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Dirección</h3>
+                    <p>Av. Gastronómica 1234<br>Buenos Aires, Argentina</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Teléfono</h3>
+                    <p>+54 11 1234-5678</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>reservas@eldorado.com</p>
+                </div>
+            </div>
+            <div class="hours">
+                <h3>Horario de atención</h3>
+                <p>Lunes a Viernes: 12:00 - 16:00 / 19:00 - 00:00</p>
+                <p>Sábados y Domingos: 12:00 - 01:00</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>El Dorado</h3>
+                    <p>Donde cada bocado es una experiencia dorada de sabores auténticos y memorables.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#menu">Menú</a></li>
+                        <li><a href="#galeria">Galería</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Menú Popular</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Pizza Dorada</a></li>
+                        <li><a href="#">Hamburguesa El Dorado</a></li>
+                        <li><a href="#">Asado Argentino</a></li>
+                        <li><a href="#">Costillas BBQ</a></li>
+                        <li><a href="#">Postre de Chocolate</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Suscríbete para recibir nuestras promociones y eventos especiales.</p>
+                    <form>
+                        <input type="email" placeholder="Tu correo electrónico" style="padding: 10px; width: 100%; margin-bottom: 10px; border-radius: 5px; border: none;">
+                        <button type="submit" class="btn" style="width: 100%;">Suscribirse</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 El Dorado Restaurante. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        const categoryBtns = document.querySelectorAll('.category-btn');
+const menuItems = document.querySelectorAll('.menu-item');
+
+categoryBtns.forEach(btn => {
+    btn.addEventListener('click', function () {
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const category = this.dataset.category;
+
+        menuItems.forEach(item => {
+            if (category === 'todo') {
+                item.style.display = 'block';
+            } else {
+                item.style.display = item.classList.contains(category) ? 'block' : 'none';
+            }
+        });
+    });
+});
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
