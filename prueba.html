@@ -568,6 +568,91 @@
                 align-items: center;
             }
         }
+
+        /* Estilos para el modal de reserva */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+        }
+        
+        .modal-content {
+            background-color: #f8f8f8;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: modalAppear 0.4s;
+        }
+        
+        @keyframes modalAppear {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close:hover {
+            color: var(--secondary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .modal-content h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2.2rem;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .modal-content .btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -594,7 +679,7 @@
             <p>Donde los sabores se encuentran con la tradición</p>
             <div class="hero-buttons">
                 <a href="#menu" class="btn">Ver Menú</a>
-                <a href="#reservas" class="btn btn-secondary">Reservar Mesa</a>
+                <a href="#reservas" class="btn btn-secondary" id="reservarBtn">Reservar Mesa</a>
             </div>
         </div>
     </section>
@@ -887,6 +972,53 @@
         </div>
     </footer>
 
+    <!-- Modal de reserva -->
+    <div id="reservaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Reservar Mesa en El Dorado</h2>
+            <form id="reservaForm">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+                <div class="form-group">
+                    <label for="hora">Hora:</label>
+                    <input type="time" id="hora" name="hora" min="12:00" max="23:00" required>
+                </div>
+                <div class="form-group">
+                    <label for="personas">Número de personas:</label>
+                    <select id="personas" name="personas" required>
+                        <option value="1">1 persona</option>
+                        <option value="2">2 personas</option>
+                        <option value="3">3 personas</option>
+                        <option value="4">4 personas</option>
+                        <option value="5">5 personas</option>
+                        <option value="6">6 personas</option>
+                        <option value="7">7+ personas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Comentarios adicionales:</label>
+                    <textarea id="mensaje" name="mensaje" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn">Confirmar Reserva</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         // Header scroll effect
         window.addEventListener('scroll', function() {
@@ -899,24 +1031,24 @@
         });
         
         const categoryBtns = document.querySelectorAll('.category-btn');
-const menuItems = document.querySelectorAll('.menu-item');
+        const menuItems = document.querySelectorAll('.menu-item');
 
-categoryBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-        categoryBtns.forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
 
-        const category = this.dataset.category;
+                const category = this.dataset.category;
 
-        menuItems.forEach(item => {
-            if (category === 'todo') {
-                item.style.display = 'block';
-            } else {
-                item.style.display = item.classList.contains(category) ? 'block' : 'none';
-            }
+                menuItems.forEach(item => {
+                    if (category === 'todo') {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = item.classList.contains(category) ? 'block' : 'none';
+                    }
+                });
+            });
         });
-    });
-});
         
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -928,6 +1060,84 @@ categoryBtns.forEach(btn => {
                 });
             });
         });
+
+        // Funcionalidad para el modal de reserva
+        const modal = document.getElementById("reservaModal");
+        const reservaBtn = document.getElementById("reservarBtn");
+        const closeBtn = document.querySelector(".close");
+        const reservaForm = document.getElementById("reservaForm");
+        
+        // Abrir modal al hacer clic en "Reservar Mesa"
+        reservaBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            modal.style.display = "block";
+            document.body.style.overflow = "hidden"; // Prevenir scroll
+        });
+        
+        // Cerrar modal al hacer clic en la X
+        closeBtn.addEventListener("click", function() {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+        
+        // Cerrar modal al hacer clic fuera del contenido
+        window.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        });
+        
+        // Manejar el envío del formulario
+        reservaForm.addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Aquí normalmente se enviarían los datos al servidor
+            // En este ejemplo solo mostraremos una alerta
+            
+            // Obtener valores del formulario
+            const nombre = document.getElementById("nombre").value;
+            const fecha = document.getElementById("fecha").value;
+            const hora = document.getElementById("hora").value;
+            const personas = document.getElementById("personas").value;
+            
+            // Formatear fecha para mostrar
+            const fechaObj = new Date(fecha);
+            const fechaFormateada = fechaObj.toLocaleDateString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Mostrar mensaje de confirmación
+            alert(`¡Reserva confirmada!\n\nGracias ${nombre}, tu mesa para ${personas} ${personas === "1" ? "persona" : "personas"} está reservada para el ${fechaFormateada} a las ${hora}.\n\nTe esperamos en El Dorado.`);
+            
+            // Cerrar el modal
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+            
+            // Limpiar el formulario
+            reservaForm.reset();
+        });
+        
+        // Configurar la fecha mínima como hoy
+        const fechaInput = document.getElementById("fecha");
+        const hoy = new Date();
+        const fechaMinima = hoy.toISOString().split('T')[0];
+        fechaInput.min = fechaMinima;
+        
+        // Configurar la hora para que solo permita horas válidas
+        const horaInput = document.getElementById("hora");
+        horaInput.addEventListener("change", function() {
+            const horaSeleccionada = this.value;
+            const hora = parseInt(horaSeleccionada.split(':')[0]);
+            
+            if (hora < 12 || hora > 23) {
+                alert("Nuestro horario de atención es de 12:00 a 23:00");
+                this.value = "12:00";
+            }
+        });
     </script>
 </body>
-</html>
+    </html>
