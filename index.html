@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luis Vargas | Desarrollador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #ffffff;
+            --accent-color: #4361ee;
+            --light-gray: #f8f8f8;
+            --text-gray: #666;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--primary-color);
+            background-color: var(--secondary-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--secondary-color);
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5%;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1.5px;
+        }
+        
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            max-width: 650px;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+        }
+        
+        .hero-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .hero-link {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 30px;
+        }
+        
+        .hero-link:hover {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+        }
+        
+        .hero-link i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 8rem 5%;
+            background-color: var(--light-gray);
+        }
+    
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .project-card {
+            background-color: var(--secondary-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: var(--transition);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .project-content {
+            padding: 1.8rem;
+        }
+        
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+        
+        .project-description {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tech-tag {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--accent-color);
+            padding: 0.4rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+    
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .project-link:hover {
+            color: #2a4dca;
+        }
+        
+        .project-link i {
+            margin-left: 8px;
+            font-size: 0.9rem;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 8rem 5%;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .skill {
+            background-color: var(--light-gray);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .code-container {
+            background-color: #2d3748;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .code-header {
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot-red {
+            background-color: #f56565;
+        }
+        
+        .dot-yellow {
+            background-color: #ecc94b;
+        }
+        
+        .dot-green {
+            background-color: #48bb78;
+        }
+        
+        .code-content {
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        .code-comment {
+            color: #718096;
+        }
+        
+        .code-keyword {
+            color: #63b3ed;
+        }
+        
+        .code-function {
+            color: #68d391;
+        }
+        
+        .code-string {
+            color: #f6e05e;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 8rem 5%;
+            text-align: center;
+            background-color: var(--light-gray);
+        }
+        
+        .contact h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .contact p {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+        
+        .contact-email {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        .contact-email:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                margin-top: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                transform: translateY(-150%);
+                transition: var(--transition);
+            }
+            
+            nav.active ul {
+                transform: translateY(0);
+            }
+            
+            nav ul li {
+                margin: 0;
+                padding: 0.8rem 5%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-link {
+                justify-content: center;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">Luis Vargas</a>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#projects">Proyectos</a></li>
+                <li><a href="#about">Sobre mí</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Desarrollo web con pasión por aprender</h1>
+        <p>Soy un desarrollador en formación con conocimientos en HTML, JavaScript y Python. Estoy enfocado en mejorar mis habilidades y crear proyectos que reflejen mi crecimiento.</p>
+        <div class="hero-links">
+            <a href="#projects" class="hero-link">
+                <i class="fas fa-code"></i> Ver mis proyectos
+            </a>
+            <a href="#contact" class="hero-link">
+                <i class="fas fa-paper-plane"></i> Contactar
+            </a>
+        </div>
+    </section>
+
+  <!-- Projects Section -->  
+<section id="projects" class="projects">  
+  <h2 class="section-title">Mis Proyectos</h2>  
+  <div class="projects-grid">  
+
+    <!-- Proyecto 1: Calculadora Python -->
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?ixlib=rb-4.0.3&auto=format&fit=crop&w=1160&q=80" alt="Calculadora Python" class="project-img">  
+      <div class="project-content">  
+        <h3 class="project-title">Calculadora en Python</h3>  
+        <p class="project-description">Una calculadora funcional desarrollada en Python con interfaz gráfica usando Tkinter. Permite realizar operaciones básicas como suma, resta, multiplicación y división.</p>  
+        <div class="project-tech">  
+          <span class="tech-tag">Python</span>  
+          <span class="tech-tag">Tkinter</span>  
+          <span class="tech-tag">GUI</span>  
+        </div>  
+        <a href="#" class="project-link" onclick="toggleCode(event, 'calc-code')">Ver código <i class="fas fa-arrow-right"></i></a>  
+        <pre id="calc-code" class="hidden code-block">Código omitido por brevedad</pre> 
+      </div>  
+    </div>
+
+    <!-- Proyecto 2: Portafolio Web -->
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1463171379579-3fdfb86d6285?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Portafolio Web" class="project-img">  
+      <div class="project-content">  
+        <h3 class="project-title">Portafolio Web Personal</h3>  
+        <p class="project-description">Este sitio web que estás viendo, desarrollado con HTML, CSS y JavaScript.</p>  
+        <div class="project-tech">  
+          <span class="tech-tag">HTML</span>  
+          <span class="tech-tag">CSS</span>  
+          <span class="tech-tag">JavaScript</span>  
+          <span class="tech-tag">Responsive</span>  
+        </div>  
+        <a href="#" class="project-link" onclick="toggleCode(event, 'portfolio-details')">Ver detalles <i class="fas fa-arrow-right"></i></a>  
+        <div id="portfolio-details" class="hidden">
+          <p>Diseñado desde cero con enfoque minimalista y responsivo. Incluye:</p>
+          <ul>
+            <li>Secciones interactivas como proyectos y contacto</li>
+            <li>Diseño adaptable para móvil y escritorio</li>
+            <li>Uso de íconos FontAwesome</li>
+            <li>Preparado para escalar o integrar funcionalidades JS</li>
+          </ul>
+        </div> 
+      </div>
+    </div>
+
+    <!-- Proyecto 3: Formulario de Contacto -->
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1170&q=80" class="project-img" alt="Formulario">
+      <div class="project-content">
+        <h3 class="project-title">Formulario de Contacto</h3>
+        <p class="project-description">Formulario elegante que recopila datos básicos del usuario, validaciones y estilo responsive.</p>
+        <div class="project-tech">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">Responsive</span>
+        </div>
+        <a href="formulario.html" class="project-link" target="_blank">Ver formulario <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- Proyecto 4: Conversor de Temperatura -->
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1170&q=80" class="project-img" alt="Conversor">
+      <div class="project-content">
+        <h3 class="project-title">Conversor de Temperatura</h3>
+        <p class="project-description">Convierte entre Celsius, Fahrenheit y Kelvin usando HTML, CSS y JavaScript.</p>
+        <div class="project-tech">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">JavaScript</span>
+        </div>
+        <a href="conversor.html" class="project-link" target="_blank">Ver conversor <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- Proyecto 5: Sistema de Reseñas -->
+    <div class="project-card">
+      <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1170&q=80" class="project-img" alt="Sistema de Reseñas">
+      <div class="project-content">
+        <h3 class="project-title">Sistema de Reseñas</h3>
+        <p class="project-description">Proyecto moderno que permite dejar reseñas con calificación por estrellas, filtros y diseño responsive.</p>
+        <div class="project-tech">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">JavaScript</span>
+        </div>
+        <a href="sistema-de-reseñas.html" class="project-link" target="_blank">Ver reseñas <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+  </div>
+</section>  
+
+<!-- Estilo y Script para interactividad -->
+<style>
+    .hidden {
+        display: none;
+    }
+    .code-block {
+        background-color: #111;
+        color: #0f0;
+        padding: 1rem;
+        border-radius: 10px;
+        overflow-x: auto;
+        margin-top: 1rem;
+        font-size: 0.85rem;
+    }
+</style>
+
+<script>
+    function toggleCode(event, id) {
+        event.preventDefault();
+        const element = document.getElementById(id);
+        element.classList.toggle('hidden');
+    }
+</script>>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Sobre mí</h2>
+                <p>Soy un desarrollador en formación con sólidos conocimientos en HTML, Python y JavaScript. Aunque aún no me considero un experto, tengo una base técnica sólida y estoy comprometido con mi crecimiento continuo.</p>
+                <p>Mi enfoque actual está en mejorar mis habilidades existentes mientras exploro nuevas tecnologías. Cada proyecto es una oportunidad para aprender, cometer errores constructivos y perfeccionar mi oficio.</p>
+                <p>Estoy buscando oportunidades que me permitan aplicar mis conocimientos actuales mientras sigo desarrollando mi expertise. Mi verdadera especialidad es la perseverancia y la curiosidad por aprender.</p>
+                <div class="skills">
+                    <span class="skill">HTML</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">Python</span>
+                    <span class="skill">Aprendizaje continuo</span>
+                    <span class="skill">Resolución de problemas</span>
+                </div>
+            </div>
+            <div class="about-image">
+                <div class="code-container">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                    </div>
+                    <pre class="code-content"><span class="code-comment"># Mi filosofía de desarrollo</span>
+<span class="code-keyword">def</span> <span class="code-function">mi_enfoque</span>():
+    <span class="code-keyword">while</span> <span class="code-function">True</span>:
+        aprender = <span class="code-function">nuevos_conceptos</span>()
+        practicar = <span class="code-function">proyectos_reales</span>()
+        mejorar = <span class="code-function">refinar_habilidades</span>()
+        
+        <span class="code-keyword">if</span> cometo_errores:
+            <span class="code-function">aprender_de_ellos</span>()
+        
+        <span class="code-keyword">return</span> <span class="code-string">"Crecimiento continuo"</span></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Contact Section -->  
+<section id="contact" class="contact">  
+    <h2>¿Quieres colaborar o saber más?</h2>  
+    <p>Estoy abierto a nuevas oportunidades de aprendizaje, proyectos pequeños o simplemente conversar sobre desarrollo web. ¡No dudes en contactarme!</p>  
+    <a href="mailto:barquiweb1314@gmail.com" class="contact-email">barquiweb1314@gmail.com</a>  
+    <div class="social-links">  
+        <a href="" target="_blank" class="social-link"><i class="fab fa-telegram-plane"></i></a>  
+        <a href="https://www.linkedin.com/in/tuusuario" target="_blank" class="social-link"><i class="fab fa-linkedin-in"></i></a>  
+        <a href="https://wa.me/584125802883" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>  
+    </div>  
+</section>
+
+    <!-- Footer -->
+    <footer>
+  <div class="footer-logo">Luis Vargas</div>
+  <p>© 2025 Luis Vargas – Desarrollador.</p>
+</footer>
+
+    <script>
+        // Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+        
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu after clicking
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                    }
+                }
+            });
+        });
+        
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+                header.style.padding = '1rem 5%';
+            } else {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+                header.style.padding = '1.5rem 5%';
+            }
+        });
+    </script>
+</body>
+</html>
