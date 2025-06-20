@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Agregar Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -146,7 +148,7 @@
                         <span class="font-semibold">Total:</span>
                         <span id="cart-total" class="font-bold text-xl">$0.00</span>
                     </div>
-                    <button class="w-full bg-primary hover:bg-red-500 text-white py-3 rounded-lg font-semibold transition duration-300">
+                    <button id="checkout-button" class="w-full bg-primary hover:bg-red-500 text-white py-3 rounded-lg font-semibold transition duration-300">
                         Finalizar Compra
                     </button>
                 </div>
@@ -164,7 +166,7 @@
                     <button class="bg-accent text-dark font-bold py-3 px-8 rounded-full text-lg hover:bg-yellow-300 transition duration-300 animate__animated animate__fadeInUp animate__delay-1s">
                         Comprar Ahora
                     </button>
-                    <button class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-white hover:text-dark transition duration-300 animate__animated animate__fadeInUp animate__delay-1s">
+                    <button onclick="scrollToProducts()" class="bg-transparent border-2 border-white text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-white hover:text-dark transition duration-300 animate__animated animate__fadeInUp animate__delay-1s">
                         Ver Colección
                     </button>
                 </div>
@@ -221,7 +223,7 @@
     </section>
     
     <!-- Productos Destacados -->
-    <section class="py-16">
+    <section id="productos" class="py-16">
         <div class="container mx-auto px-4 md:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold">Productos Destacados</h2>
@@ -230,7 +232,7 @@
             
             <div class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Producto 1 -->
-                <div class="card-hover bg-white rounded-xl overflow-hidden fade-in" data-aos="fade-up">
+                <div class="card-hover bg-white rounded-xl overflow-hidden fade-in" data-aos="fade-up" data-category="camiseta">
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Camiseta básica" class="w-full h-64 object-cover">
                         <button class="add-to-cart absolute bottom-4 right-4 bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center hover:bg-red-500 transition duration-300" data-id="1" data-name="Camiseta Básica" data-price="24.99">
@@ -254,7 +256,7 @@
                 </div>
                 
                 <!-- Producto 2 -->
-                <div class="card-hover bg-white rounded-xl overflow-hidden fade-in" data-aos="fade-up">
+                <div class="card-hover bg-white rounded-xl overflow-hidden fade-in" data-aos="fade-up" data-category="jeans">
                     <div class="relative">
                         <img src="https://plus.unsplash.com/premium_photo-1674828601362-afb73c907ebe?q=80&w=753&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Jeans ajustados" class="w-full h-64 object-cover">
                         <button class="add-to-cart absolute bottom-4 right-4 bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center hover:bg-red-500 transition duration-300" data-id="2" data-name="Jeans Ajustados" data-price="49.99">
@@ -277,7 +279,7 @@
                 </div>
                 
                 <!-- Producto 3 -->
-                <div class="card-hover bg-white rounded-xl overflow-hidden fade-in" data-aos="fade-up">
+                <div class="card-hover bg-white rounded-xl overflow-hidden fade-in" data-aos="fade-up" data-category="vestido">
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=873&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Vestido floral" class="w-full h-64 object-cover">
                         <button class="add-to-cart absolute bottom-4 right-4 bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center hover:bg-red-500 transition duration-300" data-id="3" data-name="Vestido Floral" data-price="59.99">
@@ -301,7 +303,7 @@
                 </div>
                 
                 <!-- Producto 4 -->
-                <div class="card-hover bg-white rounded-xl overflow-hidden fade-in" data-aos="fade-up">
+                <div class="card-hover bg-white rounded-xl overflow-hidden fade-in" data-aos="fade-up" data-category="chaqueta">
                     <div class="relative">
                         <img src="https://images.unsplash.com/photo-1537465978529-d23b17165b3b?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Chaqueta denim" class="w-full h-64 object-cover">
                         <button class="add-to-cart absolute bottom-4 right-4 bg-primary text-white rounded-full w-12 h-12 flex items-center justify-center hover:bg-red-500 transition duration-300" data-id="4" data-name="Chaqueta Denim" data-price="79.99">
@@ -456,9 +458,16 @@
         </div>
     </footer>
     
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     <script>
         // Funcionalidad para añadir productos al carrito
         document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar AOS
+            AOS.init({ duration: 800 });
+            
             // Inicializar carrito
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             updateCartCount();
@@ -507,6 +516,9 @@
                     setTimeout(() => {
                         cartButton.classList.remove('animate-pulse');
                     }, 1000);
+                    
+                    // Mostrar toast
+                    showToast(`${name} añadido al carrito`);
                 });
             });
             
@@ -529,6 +541,16 @@
                 } else {
                     alert('Por favor, introduce un email válido.');
                 }
+            });
+            
+            // Finalizar compra
+            document.getElementById('checkout-button').addEventListener('click', function() {
+                alert('¡Gracias por tu compra!');
+                localStorage.removeItem('cart');
+                closeCart();
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
             });
             
             // Actualizar contador de carrito
@@ -581,8 +603,8 @@
                             const id = this.getAttribute('data-id');
                             cart = cart.filter(item => item.id !== id);
                             localStorage.setItem('cart', JSON.stringify(cart));
-                            openCart();
-                            updateCartCount();
+                            openCart(); // Refrescar el carrito
+                            updateCartCount(); // Actualizar contador
                         });
                     });
                 }
@@ -602,83 +624,60 @@
                 const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return re.test(email);
             }
-        });
-    </script>
-
-<!-- AOS Animations -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    AOS.init({ duration: 800 });
-
-    const hour = new Date().getHours();
-    if (hour >= 20 || hour <= 6) {
-        document.body.classList.add('bg-gray-900', 'text-white');
-    }
-
-    const name = localStorage.getItem('username');
-    if (!name) {
-        const input = prompt("¡Bienvenido a StyleHub! ¿Cuál es tu nombre?");
-        if (input) {
-            localStorage.setItem('username', input);
-            alert(`¡Hola ${input}! Esperamos que encuentres lo que buscas.`);
-        }
-    } else {
-        console.log(`Bienvenido de nuevo, ${name}`);
-    }
-
-    const allProducts = Array.from(document.querySelectorAll('.product-grid > div'));
-    const filterSection = document.createElement('div');
-    filterSection.className = 'flex gap-4 justify-center mb-8';
-    filterSection.innerHTML = `
-        <button class="bg-dark text-white px-4 py-2 rounded" onclick="filterProducts('all')">Todos</button>
-        <button class="bg-primary text-white px-4 py-2 rounded" onclick="filterProducts('camiseta')">Camisetas</button>
-        <button class="bg-primary text-white px-4 py-2 rounded" onclick="filterProducts('jeans')">Jeans</button>
-        <button class="bg-primary text-white px-4 py-2 rounded" onclick="filterProducts('vestido')">Vestidos</button>
-        <button class="bg-primary text-white px-4 py-2 rounded" onclick="filterProducts('chaqueta')">Chaquetas</button>
-    `;
-    document.querySelector('.product-grid').parentElement.insertBefore(filterSection, document.querySelector('.product-grid'));
-
-    window.filterProducts = function (type) {
-        allProducts.forEach(card => {
-            const name = card.querySelector('h3').textContent.toLowerCase();
-            if (type === 'all' || name.includes(type)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
+            
+            // Mostrar toast
+            function showToast(msg) {
+                const toast = document.createElement('div');
+                toast.textContent = msg;
+                toast.className = 'fixed bottom-20 right-5 bg-dark text-white px-4 py-2 rounded-lg shadow-lg z-50 opacity-90';
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2500);
             }
+            
+            // Bienvenida
+            const name = localStorage.getItem('username');
+            if (!name) {
+                setTimeout(() => {
+                    const input = prompt("¡Bienvenido a StyleHub! ¿Cuál es tu nombre?");
+                    if (input) {
+                        localStorage.setItem('username', input);
+                        alert(`¡Hola ${input}! Esperamos que encuentres lo que buscas.`);
+                    }
+                }, 1000);
+            } else {
+                console.log(`Bienvenido de nuevo, ${name}`);
+            }
+            
+            // Filtrado de productos
+            const allProducts = Array.from(document.querySelectorAll('.product-grid > div'));
+            const filterSection = document.createElement('div');
+            filterSection.className = 'flex gap-4 justify-center mb-8 flex-wrap';
+            filterSection.innerHTML = `
+                <button class="bg-dark text-white px-4 py-2 rounded" onclick="filterProducts('all')">Todos</button>
+                <button class="bg-primary text-white px-4 py-2 rounded" onclick="filterProducts('camiseta')">Camisetas</button>
+                <button class="bg-primary text-white px-4 py-2 rounded" onclick="filterProducts('jeans')">Jeans</button>
+                <button class="bg-primary text-white px-4 py-2 rounded" onclick="filterProducts('vestido')">Vestidos</button>
+                <button class="bg-primary text-white px-4 py-2 rounded" onclick="filterProducts('chaqueta')">Chaquetas</button>
+            `;
+            document.querySelector('.product-grid').parentElement.insertBefore(filterSection, document.querySelector('.product-grid'));
         });
-    }
-
-    function showToast(msg) {
-        const toast = document.createElement('div');
-        toast.textContent = msg;
-        toast.className = 'fixed bottom-20 right-5 bg-dark text-white px-4 py-2 rounded-lg shadow-lg z-50 opacity-90';
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 2500);
-    }
-
-    document.querySelectorAll('.add-to-cart').forEach(button => {
-        button.addEventListener('click', function () {
-            const name = this.getAttribute('data-name');
-            showToast(`${name} añadido al carrito`);
-        });
-    });
-
-    window.scrollToProducts = function () {
-        const section = document.querySelector('.product-grid');
-        if (section) section.scrollIntoView({ behavior: 'smooth' });
-    };
-
-    document.querySelector('#cart-modal button').addEventListener('click', function () {
-        alert('¡Gracias por tu compra!');
-        localStorage.removeItem('cart');
-        location.reload();
-    });
-});
-</script>
+        
+        // Función global para filtrar productos
+        window.filterProducts = function (type) {
+            document.querySelectorAll('.product-grid > div').forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (type === 'all' || category === type) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Función global para desplazar a productos
+        window.scrollToProducts = function() {
+            document.getElementById('productos').scrollIntoView({ behavior: 'smooth' });
+        };
+    </script>
 </body>
-
-</html>
+                    </html>
